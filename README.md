@@ -1,10 +1,15 @@
 # DeepMIF-and-Whole-Slide-MIF-Viewer
+![GitHub last commit](https://img.shields.io/github/last-commit/YemanBrhane/DeepMIF-and-Whole-Slide-MIF-Viewer)
 
-.. image:: https://img.shields.io/github/last-commit/YemanBrhane/DeepMIF-and-Whole-Slide-MIF-Viewer   :alt: GitHub last commit
+This is an a deep learning based cell profiling for multiplex immunofluorescence images. It a PyQT based graphical user interface.
 
 ## Installation
 
-pip install requirement.txt
+**To install in virtual environment**
+- Python 3.6
+- pip install -r requirement.txt
+- pip install PyQt5
+
 
 ## Models training data folder structure
 
@@ -17,6 +22,10 @@ pip install requirement.txt
 ### Cell classification model training
 
 ### DeepMIF usage
+
+## Graphical user interface
+![DeepMIF GUI](images/gui2.png)
+![DeepMIF GUI](images/gui3.png)
 
 
 ## License
