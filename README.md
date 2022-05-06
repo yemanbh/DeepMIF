@@ -61,7 +61,7 @@ Once the repository has been clone/downloaded, you have to put your dataset in t
                         .
                         .
 ```
-### DeepMIF diagram
+### DeepMIF pipeline
 
 The DeepMIF pipeline has four main sections: cell detection, cell classification,
 co-expression analysis and WSI viewer (Fig. 1b). The Vectra 3 platform generates
