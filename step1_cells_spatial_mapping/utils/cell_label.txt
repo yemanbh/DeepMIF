@@ -1,0 +1,2 @@
+ff00ff Neg #magenta
+00ff00 Pos #green

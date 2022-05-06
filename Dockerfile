@@ -1,5 +1,5 @@
 FROM tensorflow/tensorflow:2.0.0-gpu-py3
-MAINTAINER YEMAN <yeman.hagos@icr.ac.uk>
+MAINTAINER Name <YourEmail@abc.com>
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 # treated it like a Ubuntu OS:
 #	update the apt-get;

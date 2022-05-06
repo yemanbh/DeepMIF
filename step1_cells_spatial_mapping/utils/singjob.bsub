@@ -1,0 +1,45 @@
+#*************** job configuration*****************************************
+
+#BSUB -J "MYELOMA[1-1]"
+#BSUB -P EEC191X
+#BSUB -q yuangpu
+#BSUB -e /home/DMP/DUDMP/COPAINGE/yhagos/MYELOMA/CD/data/Logs/train.%J.%I.errors
+#BSUB -o /home/DMP/DUDMP/COPAINGE/yhagos/MYELOMA/CD/data/Logs/train.%J.%I.outputs
+#BSUB -W 250:00
+#BSUB -R "rusage[ngpus_excl_p=1]"
+#BSUB -u yeman.hagos@icr.ac.uk
+
+#**************************** input and output directories*****************
+
+data="$HOME/MYELOMA/CD/data/training_data"
+#images="$HOME/MYELOMA/data/PREINVASIVE/tiles"
+output="$HOME/MYELOMA/CD/data/models/200407"
+
+echo "*************Printing time and other details ****************************"
+
+echo "LSB_BATCH_JID:" ${LSB_BATCH_JID}
+echo "current working directory:" ${PWD}
+#echo "created on:" $(date '+%Y-%m-%d')
+echo "created by:$USER"
+echo "created on: $(date)"
+
+echo "output:$output"
+#echo "images:$images"
+echo "data:$data"
+
+echo "********************************************************************************"
+
+#**************************** job execution using singularity container *************************
+
+if [ -z "$LSB_JOBINDEX" ]
+then
+    echo "make sure to specify bsub job as LSB job arrays "
+    exit 1;
+fi
+
+singularity exec --nv \
+	--bind $(readlink $HOME/MYELOMA/CD/src):$(readlink $HOME/MYELOMA/CD/src) docker://yhagos/tf2gpu:concordenet \
+	/bin/bash --norc --noprofile -c "
+	 echo "Executing singularity"
+	 python $HOME/MYELOMA/CD/src/main.py --d $data --output $output -n ${LSB_JOBINDEX}
+	"	

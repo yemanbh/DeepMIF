@@ -1,0 +1,58 @@
+#*************** Davros path*****************************************
+#++++++++++++++++++++++++++ /data/rds/DMP/DUDMP/COPAINGE/yhagos/Projects
+#*************** job configuration*****************************************
+
+#BSUB -J "Vectra[1-10]"
+#BSUB -P EEC191X
+#BSUB -q normal
+#BSUB -e /mnt/scratch/DMP/COPAINGE/yhagos/Vectra/20200714_cohort_cd_cc/Logs/eval.%J.%I.errors
+#BSUB -o /mnt/scratch/DMP/COPAINGE/yhagos/Vectra/20200714_cohort_cd_cc/Logs/eval.%J.%I.outputs
+#BSUB -W 100:00
+#BSUB -n 1
+#BSUB –R "rusage[mem=25600]"
+#BSUB -u yeman.hagos@icr.ac.uk
+#xxxxBSUB –R "rusage[mem=25600]"
+#xxBSUB –R "rusage[ngpus_excl_p=1]"
+#xxxBSUB -n 4
+export LD_LIBRARY_PATH=/apps/intel/mkl-dnn/mklml_lnx_2018.0.1.20171007/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/apps/cudnn/cuda9.2/7.2.1/lib64/:/apps/cuda/9.2/lib64:$LD_LIBRARY_PATH
+source /apps/anaconda/3/5.1.0/etc/profile.d/conda.sh
+conda activate tf2cpu
+#conda activate tfKerasGPU1
+
+#**************************** input and output directories*****************
+
+
+# FILES and output dirs
+# Panel1-Immune-Tcell, Panel2-NK-Tcell, Panel3-Myeloid, Panel4-Macrophages, 
+cws_dir=/mnt/scratch/DMP/COPAINGE/yhagos/Vectra/Panels/Panel2-NK-Tcell
+output_dir=/mnt/scratch/DMP/COPAINGE/yhagos/Vectra/20200714_cohort_cd_cc/cc_cd/Panel2-NK-Tcell
+home_dir=/mnt/scratch/DMP/COPAINGE/yhagos/Vectra/20200714_cohort_cd_cc/20200701_SpatialMappingCode
+
+# MODELS
+cd_model_dir=/mnt/scratch/DMP/COPAINGE/yhagos/Vectra/20200714_cohort_cd_cc/models/CD_Top1/best_model.h5
+nuclear_cc_model_dir=/mnt/scratch/DMP/COPAINGE/yhagos/Vectra/20200714_cohort_cd_cc/models/foxp3/best_model.h5
+others_cc_model_dir=/mnt/scratch/DMP/COPAINGE/yhagos/Vectra/20200714_cohort_cd_cc/models/others/best_model.h5
+num_cpu=4
+# $LSB_JOBINDEX or -1, [0, number of batch]
+batch=$LSB_JOBINDEX
+
+echo "*************Printing time and other details ****************************"
+
+echo "LSB_BATCH_JID:" ${LSB_BATCH_JID}
+echo "current working directory:" ${PWD}
+#echo "created on:" $(date '+%Y-%m-%d')
+echo "created by:$USER"
+echo "created on: $(date)"
+
+echo "output:$output_dir"
+#echo "cd_model_dir:cd_model_dir"
+echo "cc_model_dir:cc_model_dir"
+echo "cws_dir:cws_dir"
+
+echo "********************************************************************************"
+
+#**************************** job execution *************************
+
+python main.py --cdcnn $cd_model_dir --cccnn_others $others_cc_model_dir --cccnn_nuclear $nuclear_cc_model_dir \
+				--output $output_dir --home_dir $home_dir -n $num_cpu --cws_dir $cws_dir --batch $batch --cluster
