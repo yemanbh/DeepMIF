@@ -80,12 +80,12 @@ For cell nucleus detection  <a href="https://link.springer.com/chapter/10.1007/9
 
 
 ## Graphical user interface
-![DeepMIF GUI](images/gui image.png)
+![DeepMIF GUI](images/guiimage.PNG)
 ```
 Figure 2| DeepMIF graphical user interface
 ```
 
-![DeepMIF GUI](images/gui3.png)
+![DeepMIF GUI](images/gui3.PNG)
 
 ```
 Figure 3| Sample annotated image visualization
