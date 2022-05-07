@@ -16,6 +16,7 @@ git clone https://github.com/YemanBrhane/DeepMIF.git
 ```
 **To install in virtual environment**
 - Python==3.6
+- tensorflow-gpu==2.0.0
 - numpy==1.17.5
 - pandas==1.0.5
 - scikit-learn==0.22.2
