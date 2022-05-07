@@ -92,7 +92,7 @@ Figure 2| DeepMIF graphical user interface
 Figure 3| Sample annotated image visualization
 ```
 
-# How to run DeepMIF
+## How to run DeepMIF
 The DeepMIF software along with its graphical user interface will be publicly available soon. For now, you can use this command line to run the pipeline:
 
 ```
@@ -101,6 +101,6 @@ run_deepmif.bat path/to/dockerimage path/to/data output/dir  co-expdist nuclearM
 
 ```
 
-# Citation
+## Citation
 
 Will be updated.
